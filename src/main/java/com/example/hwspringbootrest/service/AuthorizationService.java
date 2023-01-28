@@ -3,6 +3,8 @@ package com.example.hwspringbootrest.service;
 import com.example.hwspringbootrest.exception.InvalidCredentials;
 import com.example.hwspringbootrest.exception.UnauthorizedUser;
 import com.example.hwspringbootrest.model.Authorities;
+import com.example.hwspringbootrest.model.CasePerson;
+import com.example.hwspringbootrest.model.Person;
 import com.example.hwspringbootrest.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +18,14 @@ public class AuthorizationService {
         this.userRepository = repository;
     }
 
-    public List<Authorities> getAuthorities(String user, String password) {
-        if (isEmpty(user) || isEmpty(password)) {
+    public List<Authorities> getAuthorities(@CasePerson Person person) {
+        if (isEmpty(person.getUser()) || isEmpty(person.getPassword())) {
             throw new InvalidCredentials("User name or password is empty");
         }
 
-        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user, password);
+        List<Authorities> userAuthorities = userRepository.getUserAuthorities(person);
         if (isEmpty(userAuthorities)) {
-            throw new UnauthorizedUser("Unknown user " + user);
+            throw new UnauthorizedUser("Unknown user " + person);
         }
         return userAuthorities;
     }

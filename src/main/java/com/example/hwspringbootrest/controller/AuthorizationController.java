@@ -1,9 +1,10 @@
 package com.example.hwspringbootrest.controller;
 
 import com.example.hwspringbootrest.model.Authorities;
+import com.example.hwspringbootrest.model.Person;
 import com.example.hwspringbootrest.service.AuthorizationService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/authorize")
-    public List<Authorities> getAuthorities(@RequestParam("user") String user, @RequestParam("password") String password) {
-        return service.getAuthorities(user, password);
+    public List<Authorities> getAuthorities(@Valid Person person1) {
+        return service.getAuthorities(person1);
     }
 }
