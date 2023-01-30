@@ -1,6 +1,7 @@
 package com.example.hwspringbootrest.controller;
 
 import com.example.hwspringbootrest.model.Authorities;
+import com.example.hwspringbootrest.model.CasePerson;
 import com.example.hwspringbootrest.model.Person;
 import com.example.hwspringbootrest.service.AuthorizationService;
 import jakarta.validation.Valid;
@@ -18,7 +19,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/authorize")
-    public List<Authorities> getAuthorities(@Valid Person person1) {
-        return service.getAuthorities(person1);
+    public List<Authorities> getAuthorities(@Valid @CasePerson Person person) {
+        return service.getAuthorities(person);
     }
 }

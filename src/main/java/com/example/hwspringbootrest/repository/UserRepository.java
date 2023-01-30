@@ -5,17 +5,29 @@ import com.example.hwspringbootrest.model.Person;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
 public class UserRepository {
+    private List<Person> persons = new ArrayList<>();
+
+    public UserRepository() {
+        persons.add(new Person("admin", "12345678",
+                Arrays.asList(Authorities.READ, Authorities.WRITE, Authorities.DELETE)));
+
+        persons.add(new Person("user1", "user1234",
+                List.of(Authorities.READ)));
+
+        persons.add(new Person("user2", "user21234",
+                Arrays.asList(Authorities.READ, Authorities.WRITE)));
+    }
+
     public List<Authorities> getUserAuthorities(Person person) {
-        List<Authorities> authoritiesList = new ArrayList<>();
-        if (person.getUser().equals("admin") && person.getPassword().equals("12345678")) {
-            authoritiesList.add(Authorities.READ);
-            authoritiesList.add(Authorities.WRITE);
-            authoritiesList.add(Authorities.DELETE);
+        int index = persons.indexOf(person);
+        if (index != -1) {
+            return persons.get(index).getAuthoritiesList();
         }
-        return authoritiesList;
+        return null;
     }
 }

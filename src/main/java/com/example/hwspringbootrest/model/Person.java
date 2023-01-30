@@ -3,16 +3,27 @@ package com.example.hwspringbootrest.model;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Person {
 
-    @NotBlank
     @Size(min = 2, max = 20)
+    @NotBlank
     private String user;
 
     @Size(min = 8, max = 40)
+    @NotBlank
     private String password;
+
+    private List<Authorities> authoritiesList;
+
+
+    public Person(String user, String password, List<Authorities> authoritiesList) {
+        this.user = user;
+        this.password = password;
+        this.authoritiesList = authoritiesList;
+    }
 
     public Person(String user, String password) {
         this.user = user;
@@ -36,6 +47,10 @@ public class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Authorities> getAuthoritiesList() {
+        return authoritiesList;
     }
 
     @Override
