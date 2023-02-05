@@ -1,0 +1,9 @@
+version: '1'
+
+services:
+  hwdocker:
+    image: 'hwdocker:1.0'
+    ports:
+      - '8080'
+    build:
+      ./
