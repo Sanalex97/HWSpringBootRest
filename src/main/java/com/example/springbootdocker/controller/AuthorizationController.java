@@ -22,4 +22,9 @@ public class AuthorizationController {
     public List<Authorities> getAuthorities(@Valid @CasePerson Person person) {
         return service.getAuthorities(person);
     }
+
+    @GetMapping("/")
+    public void Hello() {
+        System.out.println("Hello service!");
+    }
 }
